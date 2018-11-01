@@ -1,0 +1,92 @@
+<ng-form name="$ctrl.addform" method="post">
+
+    <!-- Add user registration data -->
+
+    <section class="content-column" ng-show="$ctrl.displayMode === 'none'">
+        ...
+    </section>
+
+    <section class="content-column" ng-show="$ctrl.displayMode === 'none'">
+        
+        <div class="add-form-container">
+
+            <md-content layout-padding ng-keypress="$ctrl.getKeyCode($event);">
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{"FORM_FIRST_NAME" | translate}}</label>
+                        <input type="text" name="firstname" ng-model="$ctrl.selectedState.add.credentials.firstname" ng-class="{'input-error': ($ctrl.addform.firstname.$touched && ($ctrl.addform.firstname.$invalid))}" ng-maxlength="$ctrl.validatePattern.textlength" required>
+                        <div ng-messages="$ctrl.addform.firstname.$error" ng-show="$ctrl.addform.firstname.$touched && ($ctrl.addform.firstname.$invalid)" style="color:maroon" role="alert">
+                            <div ng-message="required">{{"MESSAGE_VALIDATION_EMPTY_FIELD" | translate}}</div>
+                            <div ng-message="maxlength">{{"MESSAGE_VALIDATION_TOO_MANY_CHARACTERS" | translate}}</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{"FORM_LAST_NAME" | translate}}</label>
+                        <input type="text" name="lastname" ng-model="$ctrl.selectedState.add.credentials.lastname" ng-class="{'input-error': ($ctrl.addform.lastname.$touched && ($ctrl.addform.lastname.$invalid))}" ng-maxlength="$ctrl.validatePattern.textlength" required>
+                        <div ng-messages="$ctrl.addform.lastname.$error" ng-show="$ctrl.addform.lastname.$touched && ($ctrl.addform.lastname.$invalid)" style="color:maroon" role="alert">
+                            <div ng-message="required">{{"MESSAGE_VALIDATION_EMPTY_FIELD" | translate}}</div>
+                            <div ng-message="maxlength">{{"MESSAGE_VALIDATION_TOO_MANY_CHARACTERS" | translate}}</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{"FORM_EMAIL" | translate}}</label>
+                        <input type="text" name="emailid" ng-model="$ctrl.selectedState.add.id" validate-email="$ctrl.validatePattern.email" required>
+
+                        <div ng-messages="$ctrl.addform.emailid.$error" style="color:maroon" multiple role="alert" ng-show="$ctrl.addform.emailid.$touched && $ctrl.addform.emailid.$invalid">
+                            <div ng-message="required">{{"MESSAGE_VALIDATION_EMPTY_FIELD" | translate}}</div>
+                            <div ng-message="unexpected_email_pattern">{{"MESSAGE_VALIDATION_EMAIL_INVALID" | translate}}</div>
+                            <div ng-message="idOccupied">{{"MESSAGE_VALIDATION_EMAIL_EXISTS" | translate}}</div>
+                            <div ng-message="userExistInCS">{{"MESSAGE_VALIDATION_EMAIL_EXISTS" | translate}}</div>
+                            <div ng-message="userExistInMongoDB">{{"MESSAGE_VALIDATION_EMAIL_EXISTS" | translate}}</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <form-password selected-state="$ctrl.selectedState" ng-model="$ctrl.addform" abort-form="$ctrl.abortForm"></form-password>
+                </div>
+
+            </md-content>
+        </div>
+
+        <p class="compliance">{{"LABEL_TERMS_AND_CONDITION_1" | translate}} <a href ng-click="$ctrl.displayTermsAndConditionsAsInfo()">{{"LABEL_TERMS_AND_CONDITION_2" | translate}}</a> <br>{{"LABEL_TERMS_AND_CONDITION_3" | translate}}</p>
+
+        <div class="sub-button-menu">
+            <md-button class="md-raised btn1" ng-click="$ctrl.setStubData()" ng-if="$ctrl.env === 'dev'">{{"BUTTON_TEST" | translate}}</md-button>
+            <md-button class="md-raised btn1" ng-click="$ctrl.next()" ng-disabled="!$ctrl.addform.$valid">{{"BUTTON_NEXT" | translate}}</md-button>
+        </div>
+
+
+    </section>
+
+    <!-- Terms and Conditions -->
+
+    <section class="content-column terms-conditions-section" ng-show="$ctrl.displayMode !== 'none'" >
+
+        <scroll-text-pane class="terms-conditions-article" scroll-content="$ctrl.scrollTextContent" is-scrolled-to-bottom="$ctrl.isRead" display-button="true" ng-if="$ctrl.displayMode !== 'none'" display-mode="$ctrl.displayMode"></scroll-text-pane>
+
+        <div class="bottom-menu">
+            <div class="centered-narrow">
+                <md-button type="button" class="md-raised btn1 left-floated" ng-click="$ctrl.cancelTermsAndConditions()">{{"BUTTON_CANCEL"| translate}}</md-button>
+                <md-switch class="md-primary left-floated" md-no-ink aria-label="Agree" ng-model="$ctrl.isAgreed" ng-show="$ctrl.displayMode === 'agree'" ng-disabled="!$ctrl.isRead">{{"BUTTON_AGREE"| translate}}</md-switch>
+                <md-button type="submit" class="md-raised btn1 right-floated" ng-click="$ctrl.addUser()" ng-disabled="!$ctrl.isAgreed" ng-show="$ctrl.displayMode === 'agree'">{{"BUTTON_REGISTER"| translate}}</md-button>
+            </div>
+        </div>
+
+    </section>
+
+</ng-form>
+
+<div ng-messages="$ctrl.messageService.xhr.warn" role="alert" ng-show="$ctrl.messageService.xhr.warn">
+    <div class="message-warn" ng-message="userExistInMongoDB || userExistInCS"><i class="icon-warning2"></i> {{$ctrl.messageService.xhr.warn}}</div>
+</div> 
+
+<div ng-messages="$ctrl.messageService.xhr.error" role="alert" ng-show="$ctrl.messageService.xhr.error">
+    <div ng-message="service_unavailable" class="message-error"><i class="icon-warning2"></i> {{"MESSAGE_ERROR_SERVICE_UNAVAILABLE" | translate}}</div>
+    <div ng-message="service_error" class="message-error"><i class="icon-warning2"></i> {{"MESSAGE_ERROR_SERVICE_FAILED" | translate}}</div>
+</div>

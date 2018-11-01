@@ -1,0 +1,69 @@
+// mixin functions
+
+@mixin box-shadow($shadows) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin border-top-radius($radius) {
+   -webkit-border-top-left-radius: $radius;
+  -webkit-border-top-right-radius: $radius;
+      -moz-border-top-left-radius: $radius;
+	 -moz-border-top-right-radius: $radius;
+       -ms-border-top-left-radius: $radius;
+	  -ms-border-top-right-radius: $radius;
+           border-top-left-radius: $radius;
+		  border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius) {
+   -webkit-border-bottom-left-radius: $radius;
+  -webkit-border-bottom-right-radius: $radius;
+      -moz-border-bottom-left-radius: $radius;
+	 -moz-border-bottom-right-radius: $radius;
+       -ms-border-bottom-left-radius: $radius;
+	  -ms-border-bottom-right-radius: $radius;
+           border-bottom-left-radius: $radius;
+		  border-bottom-right-radius: $radius;
+}
+
+@mixin opacity($value){
+  $IEValue: $value*100;
+  opacity: $value;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+  filter: alpha(opacity=$IEValue);
+}
+
+@mixin spin-animation($seconds, $type, $duration){
+	-webkit-animation:spin $seconds $type $duration;
+	-moz-animation:spin $seconds $type $duration;
+	animation:spin $seconds $type $duration;
+}
+
+@mixin spin-keyframes(){
+	@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+}
+
+@mixin reduced-fix-width($value){
+	width: calc(100% - $value);
+}
+
+@mixin radial-gradient($from, $to) {
+	background: -moz-radial-gradient(center, circle cover, $from 0%, $to 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $from), color-stop(100%, $to));
+	background: -webkit-radial-gradient(center, circle cover, $from 0%, $to 100%);
+	background: -o-radial-gradient(center, circle cover, $from 0%, $to 100%);
+	background: -ms-radial-gradient(center, circle cover, $from 0%, $to 100%);
+	background: radial-gradient(center, circle cover, $from 0%, $to 100%);
+	background-color: $from;
+}

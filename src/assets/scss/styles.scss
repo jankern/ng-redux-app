@@ -1,0 +1,17 @@
+/* ----------------------------------------- custom scss --------------------------------------------*/
+/* main scss file */
+
+// Functions, Mixins, Variables, Fonts, Reset and Typography
+@import "utils/reset";
+@import "utils/fonts";
+@import "utils/variables";
+@import "utils/functions";
+@import "utils/mixins";
+@import "utils/typography";
+
+// Components and Layout
+@import "components/app";
+@import "components/registration.component";
+
+// Third-party
+@import "vendor/materialize";

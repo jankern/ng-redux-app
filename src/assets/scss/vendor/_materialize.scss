@@ -1,0 +1,96 @@
+/* Bootstrap styles */
+
+.container-fluid {
+    padding: 0px;
+}
+
+.md-button { 
+    
+    &.btn1 {
+        background-color: $input-button-regular;
+        color: $base-white;
+    }
+    
+    &.btn1:not([disabled]):hover {
+        background-color: $input-button-dark !important;
+    }
+    
+    &.btn-link{
+        color:$oxseco-blue !important;
+        text-decoration: underline;
+        background:none;
+        border:none;
+        text-transform: none;
+        box-shadow: none !important;
+        padding-left: 0px;
+    }
+    
+    &.btn-link:not([disabled]):hover{
+        color:$primary-medium-dark !important;
+        text-decoration: none;
+        background:none;
+    }
+}
+
+md-input-container {
+    margin: 18px 0 0px;
+}
+
+.md-primary{
+   color: $input-button-dark;
+}
+
+md-switch{
+    &.md-checked.md-primary {
+        .md-thumb:before{
+            color:$input-button-regular;
+            background-color: $input-button-dark;
+        }
+        .md-bar{
+            background-color: $input-button-dark;
+            @include opacity(0.5);
+        }
+    }
+}
+
+md-input-container.md-default-theme .md-placeholder,
+md-input-container .md-placeholder,
+md-input-container.md-default-theme label,
+md-input-container label {
+    color: $primary-dark;
+}
+
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:focus:not([readonly]) + label,
+input[type=password]:focus:not([readonly]) + label,
+input[type=email]:focus:not([readonly]) + label,
+input[type=url]:focus:not([readonly]) + label,
+input[type=time]:focus:not([readonly]) + label,
+input[type=date]:focus:not([readonly]) + label,
+input[type=datetime]:focus:not([readonly]) + label,
+input[type=datetime-local]:focus:not([readonly]) + label,
+input[type=tel]:focus:not([readonly]) + label,
+input[type=number]:focus:not([readonly]) + label,
+input[type=search]:focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+    //color: $base-white;
+
+}
+
+input:not([type]),
+input[type=date],
+input[type=datetime-local],
+input[type=datetime],
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+textarea.materialize-textarea {
+    //color:black;
+
+}
+.modal {}

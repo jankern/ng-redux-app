@@ -1,0 +1,72 @@
+<ng-form name="$ctrl.reconfirmationform">
+    
+    <section class="content-column" ng-if="$ctrl.statusReconfirmed === '' || $ctrl.statusReconfirmed === 'mailid' || $ctrl.statusReconfirmed === 'invalid'">
+        
+        <div class="confirm-form-container">
+            <md-content layout-padding ng-keypress="$ctrl.getKeyCode($event);">
+                
+                <div layout-gt-sm="row" ng-show="$ctrl.statusReconfirmed !== 'mailid' && $ctrl.statusReconfirmed !== 'invalid'">
+                   <p>{{"LABEL_RECONFIRM_MODAL_1" | translate}} <b>{{ $ctrl.selectedState.confirm.response.emailId ? $ctrl.selectedState.confirm.response.emailId : $ctrl.selectedState.add.response.emailId }}</b>.<br>{{"LABEL_RECONFIRM_MODAL_2" | translate}}</p> 
+                </div>
+                
+                <div layout-gt-sm="row" ng-show="$ctrl.statusReconfirmed === 'mailid' || $ctrl.statusReconfirmed === 'invalid'">
+                   <p>{{"LABEL_RECONFIRM_MODAL_REENTER_EMAIL" | translate}}</p> 
+                </div>
+                
+                <div layout-gt-sm="row" ng-if="$ctrl.statusReconfirmed === 'mailid' || $ctrl.statusReconfirmed === 'invalid'" ng-show="$ctrl.statusReconfirmed === 'mailid' || $ctrl.statusReconfirmed === 'invalid'">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{"FORM_EMAIL" | translate}}</label>
+                        <input type="text" name="emailid" ng-model="$ctrl.selectedState.reconfirm.mailId" validate-email="$ctrl.validatePattern.email" required>
+
+                        <div ng-messages="$ctrl.reconfirmationform.emailid.$error" style="color:maroon" role="alert" ng-show="($ctrl.reconfirmationform.emailid.$invalid && !$ctrl.reconfirmationform.emailid.$untouched)">
+                            <div ng-message="required">{{"MESSAGE_VALIDATION_EMPTY_FIELD" | translate}}</div>
+                            <div ng-message="unexpected_email_pattern">{{"MESSAGE_VALIDATION_EMAIL_INVALID" | translate}}</div>
+                            <div ng-message="alterUserExistInCS">{{"MESSAGE_VALIDATION_EMAIL_EXISTS" | translate}}</div>
+                            <div ng-message="alterUserExistInMongoDB">{{"MESSAGE_VALIDATION_EMAIL_EXISTS" | translate}}</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+            </md-content>
+        </div>
+
+        <div class="buttom-menu top-space-20">            
+            <!-- Buttons for screen resend confirmation -->
+            <md-button class="md-raised btn1 left-floated" ng-click="$ctrl.returnToConfirm()" ng-show="$ctrl.statusReconfirmed !== 'mailid' && $ctrl.statusReconfirmed !== 'invalid'">{{"BUTTON_CANCEL" | translate}}</md-button>
+            <md-button class="md-raised btn1 right-floated" ng-click="$ctrl.reconfirmUser()" ng-show="$ctrl.statusReconfirmed !== 'mailid' && $ctrl.statusReconfirmed !== 'invalid'">{{"BUTTON_OK" | translate}}</md-button>
+            <md-button class="md-raised btn1 right-floated" ng-click="$ctrl.reconfirmMailId()" ng-show="$ctrl.statusReconfirmed !== 'mailid' && $ctrl.statusReconfirmed !== 'invalid'">{{"BUTTON_CHANGE_EMAIL" | translate}}</md-button>
+            
+            <!-- Buttons for screen re-enter mail id and resend confirmation -->
+            <md-button class="md-raised btn1 left-floated" ng-click="$ctrl.cancelReconfirmMailId()" ng-show="$ctrl.statusReconfirmed === 'mailid' || $ctrl.statusReconfirmed === 'invalid'">{{"BUTTON_BACK" | translate}}</md-button>
+            <md-button class="md-raised btn1 right-floated" ng-click="$ctrl.reconfirmUser()" ng-show="$ctrl.statusReconfirmed === 'mailid' || $ctrl.statusReconfirmed === 'invalid'" ng-disabled="!$ctrl.reconfirmationform.$valid" ng-disabled="!reconfirmationform.$valid">{{"BUTTON_CHANGE_EMAIL" | translate}}</md-button>
+        </div>
+
+    </section>
+
+</ng-form>
+
+<section class="content-column response" ng-if="$ctrl.statusReconfirmed === 'expired'">
+    <i class="icon-warning2 warn"></i>
+    <p>{{"PARAGRAPH_EXPIRED" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="$ctrl.resetRegistration()">{{"BUTTON_BACK_TO_REGISTRATION" | translate}}</md-button>
+    </div>
+</section>
+
+<section class="content-column response" ng-if="$ctrl.statusReconfirmed === 'denied'">
+    <i class="icon-warning2 warn"></i>
+    <p>{{"PARAGRAPH_FAILED" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="$ctrl.resetRegistration()">{{"BUTTON_BACK_TO_REGISTRATION" | translate}}</md-button>
+        <md-button class="md-raised btn1" ng-href="{{$ctrl.customerServiceMailTo}}">{{"BUTTON_CONTACT_CUSTOMER_SERVICE" | translate}}</md-button>
+    </div>
+</section>
+
+<div ng-messages="$ctrl.messageService.xhr.warn" role="alert" ng-show="$ctrl.messageService.xhr.warn">
+    <div class="message-warn" ng-message="tokenInvalid || tokenExpired || mailIdInvalid || alterUserExistInCS || alterUserExistInMongoDB"><i class="icon-warning2"></i> {{$ctrl.messageService.xhr.warn}}</div>
+</div> 
+
+<div ng-messages="$ctrl.messageService.xhr.error" role="alert" ng-show="$ctrl.messageService.xhr.error">
+    <div ng-message="service_unavailable" class="message-error"><i class="icon-warning2"></i> {{"MESSAGE_ERROR_SERVICE_UNAVAILABLE" | translate}}</div>
+    <div ng-message="service_error" class="message-error"><i class="icon-warning2"></i> {{"MESSAGE_ERROR_SERVICE_FAILED" | translate}}</div>
+</div>

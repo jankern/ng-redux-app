@@ -1,0 +1,100 @@
+<ng-form name="$ctrl.confirmationform">
+    
+    <section class="content-column" ng-if="$ctrl.statusConfirmed === '' || $ctrl.statusConfirmed === 'invalid'">
+        
+        <div class="confirm-form-container">
+            <md-content layout-padding ng-keypress="$ctrl.getKeyCode($event);">
+                <div layout-gt-sm="row">
+                     <p>{{"LABEL_CONFIRM_MODAL_1" | translate}} <b>{{ $ctrl.selectedState.confirm.response.emailId ? $ctrl.selectedState.confirm.response.emailId : $ctrl.selectedState.add.response.emailId }}</b> {{"LABEL_CONFIRM_MODAL_2" | translate}}</p>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{"FORM_CONFIRM_CODE" | translate}}</label>
+                        <input type="text" name="code" ng-model="$ctrl.selectedState.confirm.code" placeholder="####" validate-code="$ctrl.validatePattern.code" required>
+
+                        <div ng-messages="$ctrl.confirmationform.code.$error" style="color:maroon" role="alert" ng-show="($ctrl.confirmationform.code.$invalid && $ctrl.confirmationform.code.$touched)">
+                            <div ng-message="required">{{"MESSAGE_VALIDATION_EMPTY_FIELD" | translate}}</div>
+                            <div ng-message="code_mismatch">{{"MESSAGE_VALIDATION_CODE_PATTERN" | translate}}</div>
+                            <div ng-message="codeInvalid"><i class="icon-warning2"></i>{{"MESSAGE_VALIDATION_CODE_INVALID" | translate}}</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+            </md-content>
+        </div>
+
+        <div class="buttom-menu top-space-20">
+            <md-button class="md-raised btn-link" ng-click="$ctrl.resendConfirmMail()">{{"LINK_RESEND_EMAIL" | translate}}</md-button>
+            <md-button class="md-raised btn1 right-floated" ng-click="$ctrl.confirmUser()" ng-disabled="!$ctrl.confirmationform.$valid">{{"BUTTON_CONFIRM" | translate}}</md-button>
+        </div>
+
+    </section>
+
+</ng-form>
+
+<section class="content-column response" ng-if="$ctrl.statusConfirmed === 'confirmed'">
+    <i class="icon-checkmark-circle2 info"></i>
+    <p>{{"PARAGRAPH_CONFIRMED" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="" ng-disabled="false">{{"BUTTON_GO_TO_LOGIN" | translate}}</md-button>
+    </div>
+</section>
+
+<section class="content-column response" ng-if="$ctrl.statusConfirmed === 'waiting_to_be_confirmed'">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    <p>{{"PARAGRAPH_WAITING_TO_BE_CONFIRMED" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="" ng-disabled="true">{{"BUTTON_GO_TO_LOGIN" | translate}}</md-button>
+    </div>
+</section>
+
+<section class="content-column response" ng-if="$ctrl.statusConfirmed === 'confirmation_pending'">
+    <i class="icon-warning2 warn"></i>
+    <p>{{"PARAGRAPH_CONFIRMATION_PENDING" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="" ng-disabled="false">{{"BUTTON_GO_TO_LOGIN" | translate}}</md-button>
+    </div>
+</section>
+
+<section class="content-column response" ng-if="$ctrl.statusConfirmed === 'alreadyconfirmed'">
+    <i class="icon-warning2 warn"></i>
+    <p>{{"PARAGRAPH_ALREADY_CONFIRMED" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="" ng-disabled="false">{{"BUTTON_GO_TO_LOGIN" | translate}}</md-button>
+    </div>
+</section>
+
+<section class="content-column response" ng-if="$ctrl.statusConfirmed === 'expired'">
+    <i class="icon-warning2 warn"></i>
+    <p>{{"PARAGRAPH_EXPIRED" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="$ctrl.resendConfirmMail()">{{"BUTTON_RESEND_EMAIL" | translate}}</md-button>
+    </div>
+</section>
+
+<section class="content-column response" ng-if="$ctrl.statusConfirmed === 'denied' || $ctrl.statusConfirmed === 'failed'">
+    <i class="icon-warning2 warn"></i>
+    <p>{{"PARAGRAPH_FAILED" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="$ctrl.resetRegistration()">{{"BUTTON_BACK_TO_REGISTRATION" | translate}}</md-button>
+        <md-button class="md-raised btn1" ng-href="{{$ctrl.customerServiceMailTo}}">{{"BUTTON_CONTACT_CUSTOMER_SERVICE" | translate}}</md-button>
+    </div>
+</section>
+
+<section class="content-column response" ng-if="$ctrl.statusConfirmed === 'denied' || $ctrl.statusConfirmed === 'no_connection'">
+    <i class="icon-warning2 warn"></i>
+    <p>{{"PARAGRAPH_NO_CONNECTION" | translate}}</p>
+    <div class="buttom-menu top-space-50">
+        <md-button class="md-raised btn1" ng-click="$ctrl.resetRegistration()">{{"BUTTON_BACK_TO_REGISTRATION" | translate}}</md-button>
+        <md-button class="md-raised btn1" ng-href="{{$ctrl.customerServiceMailTo}}">{{"BUTTON_CONTACT_CUSTOMER_SERVICE" | translate}}</md-button>
+    </div>
+</section>
+
+<div ng-messages="$ctrl.messageService.xhr.warn" role="alert" ng-show="$ctrl.messageService.xhr.warn">
+    <div class="message-warn" ng-message="codeInvalid || tokenExpired || mailIdInvalid || statusAlreadyConfirmed || createTenantFailedInCS || tokenInvalid"><i class="icon-warning2"></i> {{$ctrl.messageService.xhr.warn}}</div>
+</div> 
+
+<div ng-messages="$ctrl.messageService.xhr.error" role="alert" ng-show="$ctrl.messageService.xhr.error">
+    <div ng-message="service_unavailable" class="message-error"><i class="icon-warning2"></i> {{"MESSAGE_ERROR_SERVICE_UNAVAILABLE" | translate}}</div>
+    <div ng-message="service_error" class="message-error"><i class="icon-warning2"></i> {{"MESSAGE_ERROR_SERVICE_FAILED" | translate}}</div>
+</div>

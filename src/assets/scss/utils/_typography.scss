@@ -1,0 +1,71 @@
+/* Typography and element styles */
+
+body{
+	font-family: $base-font, $base-font-family;
+	font-size:$base-font-size;
+	line-height:$base-line-height;
+	font-weight:$base-font-weight;
+	color:$base-black-light;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1{
+	font-family:$header1-font, $header1-font-family;
+	font-weight:$header1-font-weight;
+	font-size:2.2em;
+	margin:0 0 30px 0;
+	display:block;
+	line-height:1.5em;
+	color:$base-black-light;
+    &.corporate{
+        font-family: $coprorate-font, $coprorate-font-family;
+        font-weight: $coprorate-font-weight;
+        font-size: 1.8em;
+        span{
+            color:$oxseco-red;
+        }
+    }
+}
+
+h2{
+	font-family:$header2-font, $header2-font-family;
+	font-weight:$header2-font-weight;
+	font-size:1.4em;
+	line-height:1.5em;
+	margin:0 0 10px 0;
+	letter-spacing:0;
+	color:$base-black-light;
+}
+	
+p{
+	padding:0px;
+	margin:0px;
+}
+	
+b, strong{
+	font-weight:$bold;
+}
+	
+a{
+	text-decoration:none;
+	font-style:normal;
+	font-weight:$regular;
+	color:$base-black-light;
+	&:hover{
+		text-decoration:none;
+		color:$base-black-light;
+	};
+}
+
+label{
+    font-size:0.8em;
+    padding:0 5px;
+    vertical-align: -1px;
+}
+
+.input-error{
+    border:$input-error solid 1px;
+    background: $input-error-light;
+}

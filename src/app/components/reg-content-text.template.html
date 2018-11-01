@@ -1,0 +1,9 @@
+<article class="content-text add" ng-if="$ctrl.selectedState.viewId === 'add'">
+    <p ng-show="$ctrl.isContentVisible">{{"ADD_CLAIM" | translate}}</p>
+</article>
+<article class="content-text confirm" ng-if="$ctrl.selectedState.viewId === 'confirm'">
+    <p ng-show="$ctrl.isContentVisible">{{"CONFIRM_CLAIM" | translate}}</p>
+</article>
+<article class="content-text reconfirm" ng-if="$ctrl.selectedState.viewId === 'reconfirm'">
+    <p ng-show="$ctrl.isContentVisible">{{"RECONFIRM_CLAIM" | translate}}</p>
+</article>

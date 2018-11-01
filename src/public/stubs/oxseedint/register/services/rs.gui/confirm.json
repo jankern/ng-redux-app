@@ -1,0 +1,8 @@
+{
+    "success": "true",
+    "emailId": "<emailId>",
+    "tenantId": "<tenantId>",
+    "code": "<code>", 
+    "token": "<token>",
+    "status": 2
+}

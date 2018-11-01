@@ -1,0 +1,42 @@
+<div><i class="icon-file-download2"></i>{{$ctrl.test}}</div>
+<div>{{$ctrl.test2}}</div> 
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Redux State Check</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        States
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" ng-click="$ctrl.select1('1')">State 1</a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="$ctrl.select2('2')">State 2</a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="$ctrl.select3('3')">State 3</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="#">Reset</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-7 state-label">
+                {{$ctrl.selectedState.selectName}}&nbsp;&nbsp;
+                <span class="badge">
+                    {{$ctrl.selectedState.selectId}}
+                </span>
+            </div>
+            <div class="col-xs-2">
+                <button class="btn btn-primary pull-right" ng-click="$ctrl.select4()">Undo</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<md-progress-circular md-mode="indeterminate" ng-show="$ctrl.messageService.progressStatus"></md-progress-circular>
+<div class="progress-circular-layer" ng-show="$ctrl.messageService.progressStatus"></div>
+<header>
+    <div class="credentials-frame">
+        <div class="locale">
+            <i class="icon-earth"></i>
+            <md-select ng-model="$ctrl.localeLanguage" placeholder="{{"PLACEHOLDER_LANGUAGE" | translate}}" class="md-no-underline" md-on-close="$ctrl.changeLocale()">
+                <md-option ng-repeat="locale in $ctrl.locales" ng-value="locale.lang" ng-selected="$index === 0">
+                    {{$ctrl.localesKeys[locale.lang]}}
+                </md-option>
+            </md-select>
+        </div>
+
+    </div>
+</header>
+<main>
+    <section class="corporate-frame">
+        <h1 class="corporate">OXS<span>.</span>eco</h1>
+    </section>
+    <section class="content">
+
+        <reg-content-text is-content-visible="$ctrl.isContentVisible"></reg-content-text>
+        <reg-form-add-user ng-if="$ctrl.selectedState.viewId == 'add'" is-content-visible="$ctrl.isContentVisible" is-external-confirmed="$ctrl.isExternalConfirmed"></reg-form-add-user>
+        <reg-form-confirm-user ng-if="$ctrl.selectedState.viewId == 'confirm'" is-content-visible="$ctrl.isContentVisible" is-reconfirmed="$ctrl.isReconfirmed" is-external-confirmed="$ctrl.isExternalConfirmed"></reg-form-confirm-user>
+        <reg-form-reconfirm-user ng-if="$ctrl.selectedState.viewId == 'reconfirm'" is-content-visible="$ctrl.isContentVisible" is-reconfirmed="$ctrl.isReconfirmed"></reg-form-reconfirm-user>
+    </section>
+</main>
+<footer>
+    <ul>
+        <li><a href="#">{{'TERMS_OF_SERVICE' | translate}}</a>
+        </li>
+        <li><a href="#">{{'TERMS_OF_USE' | translate}}</a>
+        </li>
+        <li><a href="#">{{'PRIVACY_POLICY' | translate}}</a>
+        </li>
+    </ul>
+    <p>{{$ctrl.templateCopyright}}{{'COPYRIGHT' | translate}}</p>
+</footer>
+
+
+
