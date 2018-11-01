@@ -1,5 +1,5 @@
 {
-  "name": "oxs-web-server",
+  "name": "custom-web-server",
   "version": "0.1.0",
   "description": "NodeJs Dev/FE Server",
   "main": "app.js",
@@ -8,9 +8,10 @@
     "start": "node app.js --env=dev --port=3002 --root=../"
   },
   "repository": {
-    "url": "https://svn.oxseed.com/svn/"
+    "type": "git",
+    "url": "https://github.com/jankern"
   },
-  "author": "OXS.eco Team",
+  "author": "jankern",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.2",
